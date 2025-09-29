@@ -3,13 +3,29 @@ import React from "react";
 
 export async function generateMetadata(parent: ResolvingMetadata): Promise<Metadata> {
   const stock = await fetch(`https://b197dbcc2041.ngrok-free.app/info`).then(res => res.json());
-  const previousImages = (await parent).openGraph?.images || []
 
+  const title = `${stock.name} (${stock.symbol.toUpperCase()})`;
+  const description = `Current stock price for ${stock.name} is $${stock.price}`;
   return {
-    title: stock.name,
-    description: `Current stock price for ${stock.name} is $${stock.price}`,
+    title,
+    description,
     openGraph: {
-      images: [stock.logo],
+      title,
+      description,
+      images: [
+        {
+          url: stock.logoUrl,
+          width: 600,
+          height: 600,
+          alt: `${stock.name} logo`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [stock.logoUrl],
     },
   }
 };
