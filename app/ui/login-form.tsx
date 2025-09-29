@@ -5,6 +5,7 @@ import {
   AtSymbolIcon,
   KeyIcon,
   ExclamationCircleIcon,
+  ArrowPathIcon,
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
@@ -69,7 +70,8 @@ export default function LoginForm() {
         </div>
         <input type="hidden" name="redirectTo" value={callbackUrl} />
         <Button className="mt-4 w-full" aria-disabled={isPending}>
-          Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+          Log in
+          {isPending ? <ArrowPathIcon className="ml-auto h-5 w-5 text-gray-50 animate-spin" /> : <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />}
         </Button>
         <div className="flex h-8 items-end space-x-1">
           {errorMessage && (
